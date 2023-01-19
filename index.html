@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фінансові можливості України</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/default-firstframe.png');
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            width: 100%;
+            max-width: 100vw;
+            /*font-family: 'Roboto', sans-serif;*/
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            max-width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 40px;
+        }      
+
+        .main-info, .submit-info {
+            
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15vh;
+        }
+
+        .main__title {
+            padding-top: 10px;
+            color: #fff;
+            font-size: 32px;
+            line-height: 38px;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .main__text {
+            color:rgba(255, 255, 255, 0.7);
+            font-size: 17px;
+            text-align: center;
+            line-height: 24px;
+        }
+
+        .sticky-block {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0 16px;
+            min-height: 95px;
+            box-shadow: rgb(255 255 255 / 10%) 0 -1px;
+
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: flex-end;
+            align-items: center;
+            color: #fff;
+        }
+
+        .action-btn {
+            display: block;
+            width: 100%;
+            padding: 11px 18px;
+            background: rgb(19, 85, 212);
+            
+            border-radius: 4px;
+            min-height: 48px;
+            outline: none;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            font-size: 20px;
+            line-height: 24px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        
+        span:not(.progress__span) {
+            margin: 8px 0;
+            line-height: 24px;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        span.key-block {
+            position: relative;
+            top: -85px;
+            left: 125px;
+            font-size: 12px;
+            display: none;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        /* quiz */
+        .quiz {
+            width: 100%;
+            color: #fff;
+        }
+
+    
+        .quiz__item {
+            position: absolute;
+            top: 100vh;
+            width: 100%;
+            transition: top .4s ease-in;
+            max-width: 73vw;
+        }
+
+        .quiz__item.animated-show {
+            top: 31vh;
+        }
+
+        .quiz__item.animated-hide {
+            top: -100vh;
+        }
+
+        .quiz__title {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 28px;
+            position: relative;
+        }
+        .quiz__title span {
+            position: absolute;
+            top: -5px;
+            left: -25px;
+        }
+
+        .quiz__title i {
+            font-size: 7px;
+            position: relative;
+            top: -2px;
+            left: 2px;
+        }
+
+        .quiz__title.last:before {
+            content: open-quote;
+            font-size: 36px;
+            line-height: 44px;
+            position: absolute;
+            left: -20px;
+            top: -5px;
+        }
+
+        span.quiz__subtitle {
+            display: inline-block;
+            margin: 8px 0 32px 0;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .quiz__options {
+            list-style: none;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .quiz__option {
+            margin-bottom: 8px;
+            padding: 8px 41px 8px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, .6);
+            background-color: rgba(255, 255, 255, .1);
+            outline: none;
+            max-width: 363px;
+            min-width: 75px;
+            
+            cursor: pointer;
+            line-height: 22px;
+
+            display: flex;
+            font-weight: 300;
+
+            position: relative;
+        }
+
+        .quiz__option:hover {
+            border-color: #fff;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .quiz__option.selected {
+            animation-duration: .3s;
+            animation-name: selected;
+            animation-iteration-count: 1;
+            border: 2px solid #fff;
+        }
+
+        .quiz__option.selected::after {
+            content: '';
+            clear: both;
+            display: block;
+
+            width: 15px;
+            height: 5px;
+            border-left: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            transform: rotate(-45deg);
+        }
+
+        @keyframes selected {
+            0% {
+                opacity: .2;
+            }
+            25% {
+                opacity: 1;
+            }
+            75% {
+                opacity: .2;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .quiz__option .key {
+            
+            min-width: 24px;
+            height: 24px;
+            font-size: 12px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+       
+
+        .quiz__option:hover .key {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .btn-next {
+        
+            font-weight: 400;
+            cursor: pointer;
+
+            outline: none;
+            border: 1px solid transparent;
+            margin: 0;
+            box-shadow: rgb(0 0 0 / 10%) 0 3px 12px 0;
+            padding: 6px 14px;
+            background-color: rgb(19, 85, 212);
+            color: rgb(255, 255, 255);
+            border-radius: 4px;
+            line-height: 26px;
+            font-size: 16px;
+
+            display: flex;
+            max-width: 88px;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        #submit-btn {
+            width: 100%;
+            margin-top: 24px;
+            display: block;
+            text-align: center;
+
+            font-weight: 400;
+            cursor: pointer;
+
+            outline: none;
+            border: 1px solid transparent;
+            box-shadow: rgb(0 0 0 / 10%) 0 3px 12px 0;
+            padding: 6px 14px;
+            background-color: rgb(19, 85, 212);
+            color: rgb(255, 255, 255);
+            border-radius: 4px;
+            line-height: 26px;
+            font-size: 16px;
+
+        }
+        
+        .progress-block { 
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: grey;
+            width: 100%;
+            background-color: rgba(22, 24, 34, 0.8);
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .progress {
+            max-width: 240px;
+            min-width: 88px;
+            width: 100%;
+            padding: 8px;
+            
+            display: flex;
+            flex-direction: column;
+            
+        }
+
+        .progress-percent {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .6);
+            margin-bottom: 5px;
+            margin-top: -2px;
+        }
+
+        ::-webkit-progress-bar {
+            background: rgba(255, 255, 255, .1);
+        }
+
+        ::-webkit-progress-value {
+            background: rgba(255, 255, 255, .7);
+        }
+
+        ::-moz-progress-bar {
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .progress_line {
+            width: 100%;
+            height: 4px;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0);
+
+        }
+
+        .progress-block.display-none {
+            display: none;
+        }
+        
+        .buttons {
+            display: flex;
+           
+        }
+
+        .button {
+            position: relative;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition-duration: 0.1s;
+            transition-property: background-color, color, border-color, opacity, box-shadow;
+            transition-timing-function: ease-out;
+            outline: none;
+            border: 1px solid transparent;
+            padding: 0;
+            width: 36px;
+            min-width: 36px;
+            height: 36px;
+            -webkit-box-pack: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(19, 85, 212);
+            color: rgb(255, 255, 255);
+            
+        }
+
+        .button-up {
+            border-radius: 4px 0 0 4px;
+            border-right: .5px solid rgba(255, 255, 255, .3);
+        }
+
+        .button-down {
+            border-radius: 0 4px 4px 0;
+        }
+      
+        svg {
+            fill:rgb(255, 255, 255);
+        }
+
+        .submit-info {
+            margin-bottom: 10vh;
+            max-width: 720px;
+        }
+
+        .submit-info .sticky-block {
+            justify-content: center;
+        }
+
+        .submit-info .main__title {
+            font-size: 30px;
+            font-weight: 300;
+            letter-spacing: .5px;
+            margin-bottom: 50px;
+        }
+
+        .submit-info .main__text {
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        @media screen and (min-width: 361px) {
+            .progress-percent span {
+                display: inline;
+            }
+        }
+
+        @media screen and (min-width: 600px) {
+            .container {
+                padding: 0 80px;
+            }
+
+            .main__title, .submit-info .main__title {
+                font-size: 38px;
+                margin-bottom: 25px;
+                padding-top: 150px;
+            }
+
+            .main__text {
+                font-size: 20px;
+                padding: 0 15px;
+                letter-spacing: .7px;
+            }
+
+            .sticky-block {
+                position: static;
+                background: none;
+                box-shadow: none;
+                flex-direction: column;
+                margin-top: 32px;
+            }
+
+            .sticky-block .key-block {
+                display: inline-block;
+            }
+
+            .action-btn {
+                max-width: 143px;
+                font-size: 24px;
+                letter-spacing: 0;
+            }
+
+
+            .quiz__title {
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .quiz__title span {
+                font-size: 16px;
+            }
+
+            span.quiz__subtitle {
+                font-size: 20px;
+            }
+
+            .quiz__option {
+                font-size: 20px;
+                max-width: 420px;
+            }
+
+            .btn-next {
+                font-size: 20px;
+                max-width: 96px;
+            }
+
+            #submit-btn {
+                max-width: 96px;
+                margin-right: auto;
+                margin-left: auto;
+                font-size: 20px;
+            }
+
+           
+            .progress-block {
+                width: 280px;
+                margin-left: auto;
+                right: 2vh;
+                bottom: 2vh;
+                padding: 0;
+                background: none;
+            }
+
+            .progress {
+                background-color: rgba(22, 24, 34, 0.8);
+                border-radius: 4px;
+                margin-right: 8px;
+            }
+            .progress-percent {
+                margin-bottom: 5px;
+            }
+
+
+
+            #btn-final {
+                max-width: fit-content;
+            }   
+        }
+
+        @media screen and (min-width: 887px) {
+            .quiz {
+                max-width: 720px;
+                margin: 0 auto;
+            }
+
+            .quiz__item {
+                max-width: 720px;
+            }
+        }
+
+        @media screen and (min-width: 1023px) {
+            #submit-btn {
+                margin-left: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-info">
+            <h1 class="main__title">Визначення фінансових інструментів для українців.</h1>
+            <p class="main__text">Цей тест допоможе Вам визначити особисті інструменти для інвестування та примноження своїх коштів у 2023.</p>
+            <div class="sticky-block">
+                <a href="" class="action-btn">Почати</a>
+                <span class="time-block"><i class="far fa-clock"></i> Займає до 1 хвилини</span>
+                <span class="key-block">Натисніть</strong></span>
+            </div>
+        </div>
+
+        <div class="quiz display-none">
+            <div class="quiz__item">
+                <h2 class="quiz__title"><span>1<i class="fas fa-arrow-right"></i></span>Чому саме вас цікавить інвестування?*</h2>
+                <span class="quiz__subtitle">(Рівень розуміння мотивації)</span>
+                <ul class="quiz__options">
+                    <li class="quiz__option click-item"><span class="key">A</span>Я хочу мати можливість зберігати заощадження</li>
+                    <li class="quiz__option click-item"><span class="key">B</span>Я хочу мати можливість вправно розподіляти заощадження та кошти</li>
+                    <li class="quiz__option click-item"><span class="key">C</span>Я хочу примножувати заощадження та кошти</li>
+                </ul>
+                <a class="btn-next click-item">Далі<i class="fas fa-check"></i></a>
+            </div>
+
+            <div class="quiz__item">
+                <h2 class="quiz__title"><span>2<i class="fas fa-arrow-right"></i></span>Яку суму на місяць ви готові інвестувати?*</h2>
+                <span class="quiz__subtitle">Рівень визначення спроможності</span>
+                <ul class="quiz__options">
+                    <li class="quiz__option click-item"><span class="key">A</span>до 10 тис. грн </li>
+                    <li class="quiz__option click-item"><span class="key">B</span>від 10 до 100 тис. грн </li>
+                    <li class="quiz__option click-item"><span class="key">C</span>від 100 тис. грн і більше</li>
+                </ul>
+                <a class="btn-next click-item">Далі<i class="fas fa-check"></i></a>
+            </div>
+
+            <div class="quiz__item">
+                <h2 class="quiz__title"><span>3<i class="fas fa-arrow-right"></i></span>Про які інвестиційні можливості ви вже чули? *</h2>
+                <span class="quiz__subtitle">Визначення інструментів</span>
+                <ul class="quiz__options">
+                    <li class="quiz__option click-item"><span class="key">A</span>Облігації та цінні папери</li>
+                    <li class="quiz__option click-item"><span class="key">B</span>Криптовалюти</li>
+                    <li class="quiz__option click-item"><span class="key">C</span>Банкові депозити</li>
+                    <li class="quiz__option click-item"><span class="key">D</span>Нерухомість</li>
+                    <li class="quiz__option click-item"><span class="key">E</span>Інші інструменти</li>
+
+                </ul>
+                <a class="btn-next click-item">Далі<i class="fas fa-check"></i></a>
+            </div>
+
+            <div class="quiz__item">
+                <h2 class="quiz__title"><span>4<i class="fas fa-arrow-right"></i></span>Яка ваша сфера зайнятості? *</h2>
+                <span class="quiz__subtitle">Визначення сфери інтересів</span>
+                <ul class="quiz__options">
+                    <li class="quiz__option click-item"><span class="key">A</span>внутрішньо переміщена особа або без зайнятості</li>
+                    <li class="quiz__option click-item"><span class="key">B</span>сфера обслуговування</li>
+                    <li class="quiz__option click-item"><span class="key">C</span>державна служба або військовий</li>
+                    <li class="quiz__option click-item"><span class="key">D</span>ФОП або самозайнятість</li>
+                    <li class="quiz__option click-item"><span class="key">E</span>співробітник підприємства</li>
+
+                </ul>
+                <a class="btn-next click-item">Далі<i class="fas fa-check"></i></a>
+            </div>
+
+            <div class="quiz__item">
+                <h2 class="quiz__title"><span>5<i class="fas fa-arrow-right"></i></span>Наскільки активно ви можете займатися інвестиціями?*</h2>
+                <span class="quiz__subtitle">Рівень визначення залученості</span>
+                <ul class="quiz__options">
+                    <li class="quiz__option click-item"><span class="key">A</span>Я готовий(а) займатися цим весь свій час </li>
+                    <li class="quiz__option click-item"><span class="key">B</span>Я готовий(а) займатися цим тільки у вільний від основної роботи час</li>
+                    <li class="quiz__option click-item"><span class="key">C</span>Я готовий(а) ззайматися цим пасивно або декілька годин на місяць </li>
+                </ul>
+                <a class="btn-next click-item">Далі<i class="fas fa-check"></i></a>
+            </div>
+
+            <div class="quiz__item">
+                <h2 class="quiz__title"><span>6<i class="fas fa-arrow-right"></i></span>Чи є у вас приклади успішних інвестицій, якими ви готові були б поділитися?*</h2>
+                <span class="quiz__subtitle">Визначення публічності</span>
+                <ul class="quiz__options">
+                    <li class="quiz__option click-item"><span class="key">A</span>Так</li>
+                    <li class="quiz__option click-item"><span class="key">B</span>Ні</li>
+                    
+                </ul>
+                <a class="btn-next click-item">Далі<i class="fas fa-check"></i></a>
+            </div>
+
+            <div class="quiz__item">
+                <h2 class="quiz__title last">Дякуємо! Ми готові проаналізувати ваші відповіді. Будь ласка, натисність кнопку "Додати". Після завершення ми запропонуємо найкраще рішення для інвестицій в Україні.</h2>
+                
+                <a id="submit-btn" href="javascript:void(0);">Додати</a>
+            </div>
+
+            <div id="progress" class="progress-block display-none">
+                <div class="progress">
+                    <div class="progress-percent">
+                        <span class="progress__span percent-value">100%</span>
+                        <span class="progress__span display-none">Завершено</span>
+                    </div>
+                    <progress class="progress_line" min="0" max="100" value="0"></progress>
+                </div>
+                <div class="buttons">
+                    <button class="button-up button">
+                        <svg height="9" width="14"><path d="M11.996 8.121l1.414-1.414L6.705 0 0 6.707l1.414 1.414 5.291-5.293z"></path></svg>
+                    </button>
+                    <button class="button-down button">
+                        <svg height="9" width="14"><path d="M12.293.293l1.414 1.414L7 8.414.293 1.707 1.707.293 7 5.586z"></path></svg>   
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="submit-info display-none">
+            <h1 class="main__title">Вітаю! <br>Тільки 14% українців мають схожий профіль до вашого. Для вас надано можливість зареєструватись у додатку для купівлі, продажу та збереження криптовалют.</h1>
+            <p class="main__text">Обов'язково перейдіть за посиланням та зареєструйтесь у додатку. Після завантаження додатку та реєстрації ви матимите можливість користуватись всіма інструментами.</p>
+            <div class="sticky-block">
+                <a id="btn-final" href="javascript:void(0);" class="action-btn">Завантажити додаток</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let quiz = document.querySelector('.quiz');
+        let mainInfo = document.querySelector('.main-info');
+        let submitInfo = document.querySelector('.submit-info');
+        let progress = document.querySelector('#progress');
+        let progressBar = document.querySelector('progress');
+        let progressValue = document.querySelector('.percent-value');
+        let startBtn = document.querySelector('.action-btn');
+
+        let clickItems = document.querySelectorAll('.click-item');
+        let quizItems = document.querySelectorAll('.quiz__item');
+
+        let btnUp = document.querySelector('.button-up');
+        let btnDown = document.querySelector('.button-down');
+
+        let currentItem = 0;
+
+        startBtn.onclick = (e) => {
+        e.preventDefault();
+        mainInfo.classList.add('display-none');
+        quiz.classList.remove('display-none');
+        progress.classList.remove('display-none');  
+
+        setTimeout(function() {
+            quizItems[currentItem].classList.add('animated-show');
+        }, 0)
+        
+        }
+
+        clickItems.forEach(clickItem => {
+            clickItem.onclick = function(e) {
+                e.preventDefault();
+
+                let delay = 0;
+
+                if (clickItem.classList.contains('quiz__option')) {
+                    clickItem.classList.add('selected');
+                    clickItem.sibl
+                    delay = 500;
+                }
+                
+                setTimeout(function() {
+                    quizItems[currentItem].classList.add('animated-hide');
+                    quizItems[currentItem].classList.remove('animated-show');
+
+                    progressBar.value = (currentItem + 1) * 17;
+                    progressValue.innerHTML = `${progressBar.value}%`;
+                    quizItems[currentItem + 1].classList.add('animated-show');
+                    currentItem++;
+                }, delay);
+            }
+        });
+    
+        document.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter' && currentItem !== 7) {
+                if (currentItem === 0) {
+                    mainInfo.classList.add('display-none');
+                    quiz.classList.remove('display-none');
+                    progress.classList.remove('display-none');
+                    
+                    
+                    progressBar.value = (currentItem + 1) * 17;
+                    progressValue.innerHTML = `${progressBar.value}%`;
+
+                    setTimeout(function() {
+                        quizItems[currentItem].classList.add('animated-show');
+                        currentItem++;
+                    }, 0)   
+                } else {
+                    quizItems[currentItem - 1].classList.add('animated-hide');
+                    quizItems[currentItem - 1].classList.remove('animated-show');
+
+                    progressBar.value += 15;
+                    progressValue.innerHTML = `${progressBar.value}%`;
+                    
+                    setTimeout(function() {
+                        quizItems[currentItem].classList.add('animated-show');
+                        currentItem++;
+                    }, 0);
+                }
+            }
+        });
+        
+
+        btnDown.onclick = () => {
+                
+                if (currentItem <= 5) {
+                    quizItems[currentItem].classList.add('animated-hide');
+                    quizItems[currentItem].classList.remove('animated-show');
+
+                    progressBar.value = (currentItem + 1) * 17;
+                    progressValue.innerHTML = `${progressBar.value}%`;
+
+                    setTimeout(function() {
+                        quizItems[currentItem + 1].classList.add('animated-show');
+                        currentItem++;
+                    }, 0);
+                } 
+            
+        }
+
+        
+        btnUp.onclick = () => {
+                
+                if (currentItem > 0) {
+                    quizItems[currentItem].classList.remove('animated-show');
+                    quizItems[currentItem - 1].classList.remove('animated-hide');
+                    progressBar.value = (currentItem - 1) * 17;
+                    progressValue.innerHTML = `${progressBar.value}%`;
+
+                    setTimeout(function() {
+                        
+                        quizItems[currentItem - 1].classList.add('animated-show');
+                        currentItem--;
+                    }, 0);
+                }    
+        }
+        
+        
+        let submitBtn = document.querySelector('#submit-btn');
+        let finalBtn = document.querySelector('#btn-final');
+        
+        submitBtn.onclick = (e) => {
+            e.preventDefault();
+            quiz.classList.add('display-none');
+            submitInfo.classList.remove('display-none');
+        }
+
+        finalBtn.onclick = () => {
+            ///Свои дальнейшие события
+            window.location.href = 'https://kuna.onelink.me/v0Gu/ysi3a23f';
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/4b6b2c5418.js" crossorigin="anonymous"></script>
+</body>
+</html>
